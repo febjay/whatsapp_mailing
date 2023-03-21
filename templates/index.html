@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Whatsapp mailing</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}">
+</head>
+
+<body>
+<div class="box">
+    <h1>WhatsApp</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category,message in messages %}
+    <p class="{{ category }}">{{ message }}</p>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <form action="{{ url_for('home') }}" method="post">
+        <input type="text" name="text" placeholder="Текст рассылки" required="required"/>
+        <input type="text" name="count" placeholder="Колличество контактов" required="required"/>
+        <button type="submit" class="btn btn-primary btn-block btn-large">Сохранить в базу данных</button>
+    </form>
+    <form action="{{ url_for('send_whatsapp_msg') }}">
+        <button type="submit" class="btn btn-primary btn-block btn-large">Начать рассылку</button>
+    </form>
+</div>
+
+</body>
+
+</html>
